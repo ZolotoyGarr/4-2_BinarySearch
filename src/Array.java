@@ -119,7 +119,7 @@ public class Array {
                         System.err.println("Некорректное число: " + line);
                     }
                 } else {
-                    System.err.println("Недостаточно данных в файле.");
+                    System.err.println("Недостаточно данных в файле. ");
                     break;
                 }
             }
