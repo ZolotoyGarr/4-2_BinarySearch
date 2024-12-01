@@ -1,13 +1,13 @@
-import java.io.*;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Random;
-import java.util.Scanner;
 
 public class Array {
     private int[] array;
 
     public Array(int size) {
+        if (size < 0) {
+            throw new IllegalArgumentException("Размер массива не может быть отрицательным: " + size);
+        }
         array = new int[size];
     }
 
@@ -29,6 +29,9 @@ public class Array {
         array[index] = value;
     }
 
+    public int length() {
+        return array.length;
+    }
     public void setArray(int[] array) {
         this.array = array;
     }
@@ -91,46 +94,4 @@ public class Array {
         }
         return min;
     }
-
-    public void consoleFill() {
-        Scanner scanner = new Scanner(System.in);
-        for (int i = 0; i < array.length; i++) {
-            System.out.println("Enter " + (i + 1) + " element: ");
-            array[i] = scanner.nextInt();
-        }
     }
-
-    public void randomFill() {
-        Random random = new Random();
-        for (int i = 0; i < array.length; i++) {
-            array[i] = random.nextInt(10);
-        }
-    }
-
-    public void fileFill(String path) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            String line;
-            for (int i = 0; i < array.length; i++) {
-                if ((line = reader.readLine()) != null) {
-                    try {
-                        int number = Integer.parseInt(line.trim());
-                        array[i] = number;
-                    } catch (NumberFormatException e) {
-                        System.err.println("Некорректное число: " + line);
-                    }
-                } else {
-                    System.err.println("Недостаточно данных в файле.");
-                    break;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        Array arr = new Array(5);
-        arr.fileFill("C:\\Users\\BountyHunter\\Desktop\\numbers.txt");
-        System.out.println(arr);
-    }
-}
